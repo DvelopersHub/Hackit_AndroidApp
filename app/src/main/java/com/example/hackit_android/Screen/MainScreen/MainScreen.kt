@@ -2,31 +2,29 @@ package com.example.hackit_android.Screen.MainScreen
 
 import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun MainScreen(modifier: Modifier = Modifier) {
-    // 状態の定義
+fun MainScreen(
+    navController: androidx.navigation.NavController,
+    modifier: Modifier = Modifier
+) {
+    // 状態の定義（最初は閉じておく）
     var isExpanded by remember { mutableStateOf(false) }
 
-    // アイコンの回転アニメーション用 (tragetValue -> targetValue に修正)
-    val rotationAngle by animateFloatAsState(targetValue = if (isExpanded) 180f else 0f)
 
     // 画面をスクロール可能にする
     val scrollState = rememberScrollState()
@@ -37,11 +35,11 @@ fun MainScreen(modifier: Modifier = Modifier) {
             .verticalScroll(scrollState)
             .padding(24.dp),
         verticalArrangement = Arrangement.Top,
-
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(40.dp))
 
+        // ロゴテキスト
         Text(
             text = "Hackit",
             fontSize = 40.sp,
@@ -49,6 +47,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
             modifier = Modifier.padding(bottom = 24.dp)
         )
 
+        // サブタイトル
         Text(
             text = "お好きな方法でログインしてください",
             fontSize = 18.sp,
@@ -63,6 +62,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
 
         Spacer(modifier = Modifier.height(24.dp))
 
+        // 区切り線テキスト
         Text(
             text = "------------ または --------------",
             fontSize = 15.sp,
@@ -70,24 +70,27 @@ fun MainScreen(modifier: Modifier = Modifier) {
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
-        // 展開ボタンのRow
+        // 展開ボタン
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable { isExpanded = !isExpanded }
-                .padding(16.dp),
+                .padding(vertical = 12.dp, horizontal = 4.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = "その他のサインイン方法")
+            Text(
+                text = "その他のサインイン方法",
+                fontSize = 16.sp,
+                color = Color.Black
+            )
             Icon(
-                imageVector = if (isExpanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowRight,
+                imageVector = if (isExpanded) Icons.Default.KeyboardArrowDown else Icons.Default.KeyboardArrowRight,
                 contentDescription = null,
-                modifier = Modifier.rotate(rotationAngle)
+                tint = Color.Black
             )
         }
 
-        // アニメーション付きで展開
         AnimatedVisibility(visible = isExpanded) {
             Column(modifier = Modifier.fillMaxWidth()) {
                 SubLoginButton("LINEで続ける")
@@ -95,14 +98,22 @@ fun MainScreen(modifier: Modifier = Modifier) {
                 SubLoginButton("Slackで続ける")
                 SubLoginButton("Facebookで続ける")
                 SubLoginButton("Discordで続ける")
+
+                Spacer(modifier = Modifier.height(16.dp))
             }
+        }
+
+        Button(
+            onClick = {
+                Log.d("MY_APP_DEBUG", "HomeScreenへ移動する")
+                navController.navigate("home")
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(text = "テストボタン(Homeへ)")
         }
     }
 }
-
-// -----------------------------------------------------------------
-// 以下のヘルパー関数（プレハブのようなもの）もファイル内に入れてください
-// -----------------------------------------------------------------
 
 @Composable
 fun LoginButton(text: String) {
