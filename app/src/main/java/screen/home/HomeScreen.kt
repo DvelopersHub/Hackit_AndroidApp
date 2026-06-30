@@ -1,7 +1,8 @@
-package com.example.hackit_android.Screen.Homescreen
+package com.example.hackit_android.screen.home
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
@@ -19,7 +20,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.runtime.*
 import androidx.navigation.NavController
 import kotlinx.coroutines.launch
-import com.example.hackit_android.Screen.MainScreen.DetailedDrawerExample
+import com.example.hackit_android.screen.main.DetailedDrawerExample
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -51,7 +52,7 @@ fun HomeScreen(navController: NavController) {
                         modifier = Modifier
                             .size(56.dp)
                             .align(Alignment.CenterStart),
-                        shape = androidx.compose.foundation.shape.CircleShape,
+                        shape = CircleShape,
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Color(0xFFE6E1E5),
                             contentColor = Color(0xFF000000)
@@ -78,7 +79,7 @@ fun HomeScreen(navController: NavController) {
                         modifier = Modifier
                             .size(56.dp)
                             .align(Alignment.TopEnd),
-                        shape = androidx.compose.foundation.shape.CircleShape,
+                        shape = CircleShape,
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Color(0xFFE6E1E5),
                             contentColor = Color(0xFFFF7043)

@@ -1,4 +1,4 @@
-package com.example.hackit_android.Screen.MainScreen
+package com.example.hackit_android.screen.main
 
 import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
@@ -16,10 +16,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 @Composable
 fun MainScreen(
-    navController: androidx.navigation.NavController,
+    navController: NavController,
     modifier: Modifier = Modifier
 ) {
     // 状態の定義（最初は閉じておく）

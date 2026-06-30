@@ -11,8 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.hackit_android.Screen.MainScreen.MainScreen
-import com.example.hackit_android.Screen.Homescreen.HomeScreen
+import com.example.hackit_android.screen.main.MainScreen
+import com.example.hackit_android.screen.home.HomeScreen
 import com.example.hackit_android.ui.theme.Hackit_AndroidTheme
 
 class MainActivity : ComponentActivity() {
