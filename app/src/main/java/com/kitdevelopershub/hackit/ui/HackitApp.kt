@@ -26,6 +26,8 @@ import com.kitdevelopershub.hackit.ui.common.FullScreenLoading
 import com.kitdevelopershub.hackit.ui.event.EventInfoScreen
 import com.kitdevelopershub.hackit.ui.event.EventInfoViewModel
 import com.kitdevelopershub.hackit.ui.event.SidebarContent
+import com.kitdevelopershub.hackit.ui.mentor.MentorCallScreen
+import com.kitdevelopershub.hackit.ui.mentor.MentorCallViewModel
 import com.kitdevelopershub.hackit.ui.notifications.NotificationScreen
 import com.kitdevelopershub.hackit.ui.notifications.NotificationViewModel
 import com.kitdevelopershub.hackit.ui.signin.EmailEntryScreen
@@ -133,7 +135,17 @@ private fun MainFlow(container: AppContainer) {
                         notificationEvent = event
                         navController.navigate("notifications")
                     },
+                    onOpenMentor = { navController.navigate("mentor") },
                     onOpenSidebar = { scope.launch { drawerState.open() } },
+                )
+            }
+            composable("mentor") {
+                val mentorViewModel: MentorCallViewModel = viewModel {
+                    MentorCallViewModel(container.mentorRepository)
+                }
+                MentorCallScreen(
+                    viewModel = mentorViewModel,
+                    onBack = { navController.popBackStack() },
                 )
             }
             composable("notifications") {

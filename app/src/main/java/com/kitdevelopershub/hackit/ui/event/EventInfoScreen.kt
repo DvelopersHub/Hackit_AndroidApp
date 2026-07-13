@@ -17,6 +17,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Campaign
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
@@ -64,6 +65,7 @@ private val DateFormatter = DateTimeFormatter.ofPattern("M/d(E) HH:mm", Locale.J
 fun EventInfoScreen(
     viewModel: EventInfoViewModel,
     onOpenNotifications: (Event?) -> Unit,
+    onOpenMentor: () -> Unit,
     onOpenSidebar: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsState()
@@ -91,13 +93,21 @@ fun EventInfoScreen(
             LoadPhase.LOADED -> LoadedContent(uiState)
         }
 
-        FloatingHeader(onOpenSidebar = onOpenSidebar, onOpenNotifications = { onOpenNotifications(uiState.event) })
+        FloatingHeader(
+            onOpenSidebar = onOpenSidebar,
+            onOpenNotifications = { onOpenNotifications(uiState.event) },
+            onOpenMentor = onOpenMentor,
+        )
     }
 }
 
-/** 3 層フローティングヘッダー：左ハンバーガー・中央ロゴ・右ベル（iOS と同構成）。 */
+/** 3 層フローティングヘッダー：左ハンバーガー・中央ロゴ・右にメンター/ベル（iOS と同構成）。 */
 @Composable
-private fun FloatingHeader(onOpenSidebar: () -> Unit, onOpenNotifications: () -> Unit) {
+private fun FloatingHeader(
+    onOpenSidebar: () -> Unit,
+    onOpenNotifications: () -> Unit,
+    onOpenMentor: () -> Unit,
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -122,15 +132,24 @@ private fun FloatingHeader(onOpenSidebar: () -> Unit, onOpenNotifications: () ->
                 tint = HackitColors.Charcoal,
             )
         }
-        IconButton(
-            onClick = onOpenNotifications,
-            modifier = circleButtonModifier().align(Alignment.CenterEnd),
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(Spacing.SM),
+            modifier = Modifier.align(Alignment.CenterEnd),
         ) {
-            Icon(
-                Icons.Filled.Notifications,
-                contentDescription = stringResource(R.string.event_notifications),
-                tint = HackitColors.HackitOrange,
-            )
+            IconButton(onClick = onOpenMentor, modifier = circleButtonModifier()) {
+                Icon(
+                    Icons.Filled.Campaign,
+                    contentDescription = stringResource(R.string.event_mentor),
+                    tint = HackitColors.HackitOrange,
+                )
+            }
+            IconButton(onClick = onOpenNotifications, modifier = circleButtonModifier()) {
+                Icon(
+                    Icons.Filled.Notifications,
+                    contentDescription = stringResource(R.string.event_notifications),
+                    tint = HackitColors.HackitOrange,
+                )
+            }
         }
     }
 }

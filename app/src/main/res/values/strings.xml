@@ -70,4 +70,28 @@
     <string name="manual_check_in_button">手動で受付</string>
     <string name="manual_check_in_done">受付しました</string>
     <string name="manual_check_in_failed">受付に失敗しました。もう一度お試しください。</string>
+
+    <!-- メンター呼び出し -->
+    <string name="event_mentor">メンターを呼ぶ</string>
+    <string name="mentor_title">メンター呼び出し</string>
+    <string name="mentor_load_failed">呼び出し状況の取得に失敗しました。再試行してください。</string>
+    <string name="mentor_area_label">技術領域</string>
+    <string name="mentor_table_label">卓番号</string>
+    <string name="mentor_message_label">メッセージ</string>
+    <string name="mentor_table_placeholder">例: A-3</string>
+    <string name="mentor_message_placeholder">相談したい内容（任意）</string>
+    <string name="mentor_request_button">メンターを呼ぶ</string>
+    <string name="mentor_request_failed">呼び出しに失敗しました。もう一度お試しください。</string>
+    <string name="mentor_active_header">メンターを呼び出し中です</string>
+    <string name="mentor_queue_waiting">あと %1$d 組待ち</string>
+    <string name="mentor_queue_your_turn">次はあなたの番です</string>
+    <string name="mentor_cancel_button">呼び出しを取り消す</string>
+
+    <!-- 技術領域 -->
+    <string name="tech_area_frontend">フロントエンド</string>
+    <string name="tech_area_backend">バックエンド</string>
+    <string name="tech_area_infra">インフラ</string>
+    <string name="tech_area_mobile">モバイル</string>
+    <string name="tech_area_design">デザイン</string>
+    <string name="tech_area_other">その他</string>
 </resources>
