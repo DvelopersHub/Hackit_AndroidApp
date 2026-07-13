@@ -3,13 +3,17 @@ package com.kitdevelopershub.hackit.data.mock
 import com.kitdevelopershub.hackit.data.AuthRepository
 import com.kitdevelopershub.hackit.data.CheckInRepository
 import com.kitdevelopershub.hackit.data.EventRepository
+import com.kitdevelopershub.hackit.data.MentorRepository
 import com.kitdevelopershub.hackit.data.NotificationRepository
 import com.kitdevelopershub.hackit.model.AppNotification
 import com.kitdevelopershub.hackit.model.AttendanceStatus
 import com.kitdevelopershub.hackit.model.AuthProvider
 import com.kitdevelopershub.hackit.model.CheckInRecord
 import com.kitdevelopershub.hackit.model.Event
+import com.kitdevelopershub.hackit.model.MentorCall
+import com.kitdevelopershub.hackit.model.MentorCallStatus
 import com.kitdevelopershub.hackit.model.TeamMember
+import com.kitdevelopershub.hackit.model.TechArea
 import com.kitdevelopershub.hackit.model.User
 import java.time.Duration
 import java.time.Instant
@@ -106,6 +110,46 @@ class MockCheckInRepository(private val delayMillis: Long = 200) : CheckInReposi
         latitude = latitude,
         longitude = longitude,
     )
+}
+
+class MockMentorRepository(private val delayMillis: Long = 200) : MentorRepository {
+
+    // メモリ上に「現在の呼び出し」を1件だけ保持する（1チーム1呼び出しの MVP 前提）。
+    private var currentCall: MentorCall? = null
+
+    // TODO(backend): 実 API 移行時は
+    //   POST /events/{id}/mentor-calls / DELETE /mentor-calls/{id} / GET /events/{id}/mentor-calls
+    //   に差し替える。フィールド名は API 契約に一致させてある。
+    override suspend fun requestCall(
+        eventId: String,
+        teamName: String,
+        tableNumber: String,
+        techArea: TechArea,
+        message: String,
+    ): MentorCall {
+        delay(delayMillis)
+        return MentorCall(
+            id = UUID.randomUUID().toString(),
+            eventId = eventId,
+            teamName = teamName,
+            tableNumber = tableNumber,
+            techArea = techArea,
+            message = message,
+            status = MentorCallStatus.WAITING,
+            createdAt = Instant.now(),
+            queuePosition = 2,
+        ).also { currentCall = it }
+    }
+
+    override suspend fun cancelCall(callId: String) {
+        delay(delayMillis)
+        if (currentCall?.id == callId) currentCall = null
+    }
+
+    override suspend fun fetchActiveCall(eventId: String): MentorCall? {
+        delay(delayMillis)
+        return currentCall
+    }
 }
 
 class MockNotificationRepository(private val delayMillis: Long = 300) : NotificationRepository {

@@ -3,13 +3,17 @@ package com.kitdevelopershub.hackit
 import com.kitdevelopershub.hackit.data.AuthRepository
 import com.kitdevelopershub.hackit.data.CheckInRepository
 import com.kitdevelopershub.hackit.data.EventRepository
+import com.kitdevelopershub.hackit.data.MentorRepository
 import com.kitdevelopershub.hackit.data.NotificationRepository
 import com.kitdevelopershub.hackit.model.AppNotification
 import com.kitdevelopershub.hackit.model.AttendanceStatus
 import com.kitdevelopershub.hackit.model.AuthProvider
 import com.kitdevelopershub.hackit.model.CheckInRecord
 import com.kitdevelopershub.hackit.model.Event
+import com.kitdevelopershub.hackit.model.MentorCall
+import com.kitdevelopershub.hackit.model.MentorCallStatus
 import com.kitdevelopershub.hackit.model.TeamMember
+import com.kitdevelopershub.hackit.model.TechArea
 import com.kitdevelopershub.hackit.model.User
 import java.time.Instant
 
@@ -76,4 +80,43 @@ class FakeNotificationRepository(
     var notifications: () -> List<AppNotification> = { emptyList() },
 ) : NotificationRepository {
     override suspend fun fetchNotifications(): List<AppNotification> = notifications()
+}
+
+class FakeMentorRepository(
+    var active: MentorCall? = null,
+    var requestFails: Boolean = false,
+) : MentorRepository {
+    var requestCalls = 0
+        private set
+    var cancelCalls = 0
+        private set
+
+    override suspend fun requestCall(
+        eventId: String,
+        teamName: String,
+        tableNumber: String,
+        techArea: TechArea,
+        message: String,
+    ): MentorCall {
+        requestCalls++
+        if (requestFails) throw RuntimeException("request failed")
+        return MentorCall(
+            id = "call-1",
+            eventId = eventId,
+            teamName = teamName,
+            tableNumber = tableNumber,
+            techArea = techArea,
+            message = message,
+            status = MentorCallStatus.WAITING,
+            createdAt = Instant.now(),
+            queuePosition = 2,
+        ).also { active = it }
+    }
+
+    override suspend fun cancelCall(callId: String) {
+        cancelCalls++
+        if (active?.id == callId) active = null
+    }
+
+    override suspend fun fetchActiveCall(eventId: String): MentorCall? = active
 }

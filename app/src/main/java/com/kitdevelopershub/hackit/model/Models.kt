@@ -48,6 +48,40 @@ data class CheckInRecord(
     enum class Kind { ENTER, EXIT }
 }
 
+/** メンターの技術領域（iOS `TechArea` と同一）。表示名は UI 層で `@StringRes` にマップする。 */
+enum class TechArea {
+    FRONTEND,
+    BACKEND,
+    INFRA,
+    MOBILE,
+    DESIGN,
+    OTHER,
+}
+
+/** メンター呼び出しの進行状態（iOS `MentorCallStatus` と同一）。 */
+enum class MentorCallStatus {
+    WAITING,
+    IN_PROGRESS,
+    DONE,
+    CANCELLED,
+}
+
+/**
+ * メンター呼び出し（iOS `MentorCall` と同一フィールド）。
+ * `queuePosition` は待ち順（1 のとき自分の番）。順番・状態はサーバー権威。
+ */
+data class MentorCall(
+    val id: String,
+    val eventId: String,
+    val teamName: String,
+    val tableNumber: String,
+    val techArea: TechArea,
+    val message: String,
+    val status: MentorCallStatus,
+    val createdAt: Instant,
+    val queuePosition: Int,
+)
+
 /** アプリ内通知。`kind` がアイコンと色を決める（iOS `AppNotification` と同一）。 */
 data class AppNotification(
     val id: String,
