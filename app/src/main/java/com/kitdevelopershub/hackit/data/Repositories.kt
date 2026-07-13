@@ -5,7 +5,9 @@ import com.kitdevelopershub.hackit.model.AttendanceStatus
 import com.kitdevelopershub.hackit.model.AuthProvider
 import com.kitdevelopershub.hackit.model.CheckInRecord
 import com.kitdevelopershub.hackit.model.Event
+import com.kitdevelopershub.hackit.model.MentorCall
 import com.kitdevelopershub.hackit.model.TeamMember
+import com.kitdevelopershub.hackit.model.TechArea
 import com.kitdevelopershub.hackit.model.User
 
 // iOS の Repository プロトコル群と 1:1 対応。
@@ -32,4 +34,21 @@ interface CheckInRepository {
 interface NotificationRepository {
     /** 新しい順で返す想定（Mock も準拠）。 */
     suspend fun fetchNotifications(): List<AppNotification>
+}
+
+interface MentorRepository {
+    /** メンター呼び出しを起票。WAITING の `MentorCall`（待ち順つき）を返す。 */
+    suspend fun requestCall(
+        eventId: String,
+        teamName: String,
+        tableNumber: String,
+        techArea: TechArea,
+        message: String,
+    ): MentorCall
+
+    /** 呼び出しを取り消す。 */
+    suspend fun cancelCall(callId: String)
+
+    /** 進行中の呼び出しを返す。無ければ null。 */
+    suspend fun fetchActiveCall(eventId: String): MentorCall?
 }
