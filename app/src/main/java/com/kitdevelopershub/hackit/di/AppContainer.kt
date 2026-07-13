@@ -3,10 +3,12 @@ package com.kitdevelopershub.hackit.di
 import com.kitdevelopershub.hackit.data.AuthRepository
 import com.kitdevelopershub.hackit.data.CheckInRepository
 import com.kitdevelopershub.hackit.data.EventRepository
+import com.kitdevelopershub.hackit.data.MentorRepository
 import com.kitdevelopershub.hackit.data.NotificationRepository
 import com.kitdevelopershub.hackit.data.mock.MockAuthRepository
 import com.kitdevelopershub.hackit.data.mock.MockCheckInRepository
 import com.kitdevelopershub.hackit.data.mock.MockEventRepository
+import com.kitdevelopershub.hackit.data.mock.MockMentorRepository
 import com.kitdevelopershub.hackit.data.mock.MockNotificationRepository
 import com.kitdevelopershub.hackit.session.SessionStore
 
@@ -19,6 +21,7 @@ class AppContainer(
     val eventRepository: EventRepository,
     val checkInRepository: CheckInRepository,
     val notificationRepository: NotificationRepository,
+    val mentorRepository: MentorRepository,
     val sessionStore: SessionStore = SessionStore(),
 ) {
     companion object {
@@ -28,6 +31,7 @@ class AppContainer(
             eventRepository = MockEventRepository(delayMillis),
             checkInRepository = MockCheckInRepository(delayMillis),
             notificationRepository = MockNotificationRepository(delayMillis),
+            mentorRepository = MockMentorRepository(delayMillis),
         )
     }
 }
