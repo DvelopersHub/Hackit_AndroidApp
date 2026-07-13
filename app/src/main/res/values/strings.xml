@@ -1,3 +1,73 @@
 <resources>
-    <string name="app_name">Hackit_Android</string>
+    <string name="app_name">Hackit</string>
+
+    <!-- 共通 -->
+    <string name="loading">読み込み中…</string>
+    <string name="retry">再試行</string>
+    <string name="dismiss">閉じる</string>
+    <string name="back">戻る</string>
+
+    <!-- サインイン -->
+    <string name="sign_in_subtitle">お好きな方法で続けてください</string>
+    <string name="sign_in_provider_button">%1$s で続ける</string>
+    <string name="sign_in_or">または</string>
+    <string name="sign_in_other_methods">その他のサインイン方法</string>
+    <string name="sign_in_failed">サインインに失敗しました。もう一度お試しください。</string>
+    <string name="continue_button">続ける</string>
+
+    <string name="provider_apple">Apple</string>
+    <string name="provider_google">Google</string>
+    <string name="provider_github">GitHub</string>
+    <string name="provider_email">メール</string>
+    <string name="provider_line">LINE</string>
+    <string name="provider_x">X</string>
+    <string name="provider_slack">Slack</string>
+    <string name="provider_facebook">Facebook</string>
+    <string name="provider_discord">Discord</string>
+    <string name="provider_microsoft">Microsoft</string>
+    <string name="provider_yahoo">Yahoo</string>
+    <string name="provider_phone">電話番号</string>
+
+    <!-- メール/電話入力 -->
+    <string name="email_entry_title">メールアドレス</string>
+    <string name="email_entry_caption">確認用のリンクをお送りします</string>
+    <string name="email_entry_placeholder">name@example.com</string>
+    <string name="email_entry_empty">メールアドレスを入力してください。</string>
+    <string name="email_entry_screen_title">メールで続ける</string>
+    <string name="phone_entry_title">電話番号</string>
+    <string name="phone_entry_caption">SMS で確認コードをお送りします</string>
+    <string name="phone_entry_placeholder">09012345678</string>
+    <string name="phone_entry_empty">電話番号を入力してください。</string>
+    <string name="phone_entry_screen_title">電話で続ける</string>
+
+    <!-- イベント情報 -->
+    <string name="event_menu">メニュー</string>
+    <string name="event_notifications">通知</string>
+    <string name="event_load_failed">イベント情報の取得に失敗しました。再試行してください。</string>
+    <string name="event_venue_label">会場</string>
+    <string name="event_schedule_label">日時</string>
+    <string name="event_own_status_label">自分の受付状態</string>
+    <string name="event_team_members">チームメンバー</string>
+    <string name="event_team_members_empty">まだチームメンバーが登録されていません。</string>
+    <string name="event_team_members_empty_caption">リーダーに招待コードを確認してください</string>
+    <string name="event_date_range">%1$s 〜 %2$s</string>
+
+    <!-- 受付状態 -->
+    <string name="attendance_not_arrived">未到着</string>
+    <string name="attendance_present">受付済</string>
+    <string name="attendance_exited">退出済</string>
+
+    <!-- サイドバー -->
+    <string name="sidebar_sign_out">サインアウト</string>
+    <string name="sidebar_close">閉じる</string>
+
+    <!-- 通知画面 -->
+    <string name="notification_title">通知</string>
+    <string name="notification_empty">まだ通知はありません</string>
+    <string name="notification_load_failed">通知の取得に失敗しました。再試行してください。</string>
+    <string name="manual_check_in_header">自動受付できないとき</string>
+    <string name="manual_check_in_caption">会場についてもアプリが自動で受付しない場合のみ、こちらをタップしてください</string>
+    <string name="manual_check_in_button">手動で受付</string>
+    <string name="manual_check_in_done">受付しました</string>
+    <string name="manual_check_in_failed">受付に失敗しました。もう一度お試しください。</string>
 </resources>
